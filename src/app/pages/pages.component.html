@@ -1,44 +1,37 @@
 <!-- ============================================================== -->
-  <!-- Main wrapper - style you can find in pages.scss -->
-  <!-- ============================================================== -->
-  <div id="main-wrapper">
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
 
-    <app-header></app-header>
+  <app-header></app-header>
 
-    <app-sidebar></app-sidebar>
+  <app-sidebar></app-sidebar>
 
-    <div class="page-wrapper">
-      <div class="container-fluid">
-        <!-- Breadcrumbs-->
-        <app-breadcrums></app-breadcrums>
+  <div class="page-wrapper">
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <app-breadcrums></app-breadcrums>
 
-        <!-- My sistema de rutas-->
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
-        <div class="row">
-          <div class="col-12">
-              <div class="card">
-                  <div class="card-body">
-                      <!-- This is some text within a card block. -->
-                      <router-outlet></router-outlet>
-                  </div>
-              </div>
-          </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- End PAge Content -->
-        <!-- ============================================================== -->
-      </div> <!--end container fluid-->
-
+      <!-- My sistema de rutas-->
       <!-- ============================================================== -->
-      <!-- footer -->
+      <!-- Start Page Content -->
       <!-- ============================================================== -->
-      <footer class="footer">
-        © 2021 Admin Pro by wrappixel.com
-      </footer>
+
+      <router-outlet></router-outlet>
       <!-- ============================================================== -->
-      <!-- End footer -->
+      <!-- End PAge Content -->
       <!-- ============================================================== -->
     </div>
+    <!--end container fluid-->
+
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <footer class="footer">
+      © 2021 Admin Pro by wrappixel.com
+    </footer>
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
   </div>
+</div>
