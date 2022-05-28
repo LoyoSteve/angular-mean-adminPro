@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../interfaces/user.interface';
+import { Usuario } from '../models/usuario.model';
 
 declare const gapi: any;
 
@@ -13,9 +14,11 @@ declare const gapi: any;
 })
 export class UserService {
 
-  dbUrl: string = environment.db_url;
+  api_url: string = environment.api_url;
 
   public auth2: any;
+
+  usuario: Usuario;
 
   constructor(
     private http: HttpClient,
@@ -25,27 +28,36 @@ export class UserService {
     this.googleInit();
    }
 
-  renewToken(): Observable<boolean>{
-    const url = `${this.dbUrl}/login/renew`;
+   get userToken(): string {
+     return localStorage.getItem('token');
+   }
 
-    const token = localStorage.getItem('token');
+   get userUid(): string{
+     return this.usuario.uid || '';
+   }
+
+  renewToken(): Observable<boolean>{
+    const url = `${this.api_url}/login/renew`;
 
     return this.http.get(url, {
       headers: {
-        'x-token': token
+        'x-token': this.userToken
       }
     })
     .pipe(
-      tap( (resp: any) => {
+      map( (resp: any) => {
+        const { nombre, email, role, google, img='', uid} = resp.usuario;
+
+        this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
         this.saveTokenOnLocalStorage( resp.token );
+        return true;
       }),
-      map( resp => true ),
       catchError( (error) => of(false))
     );
   }
 
   registerForm(user: Partial<IUser>){
-    const url = `${this.dbUrl}/users`;
+    const url = `${this.api_url}/users`;
     return this.http.post(url, user)
           .pipe(
             tap( (resp: any) => {
@@ -54,8 +66,18 @@ export class UserService {
           );
   }
 
+  updateForm(user: Partial<IUser>){
+    user.role = this.usuario.role;
+    const url = `${this.api_url}/users/${this.userUid}`;
+    return this.http.put(url, user, {
+      headers: {
+        'x-token': this.userToken
+      }
+    });
+  }
+
   loginForm(user: Partial<IUser>){
-    const url = `${this.dbUrl}/login`;
+    const url = `${this.api_url}/login`;
     return this.http.post(url, user)
             .pipe(
               tap( (resp: any) => {
@@ -65,7 +87,7 @@ export class UserService {
   }
 
   loginGoogle(token: string){
-    const url = `${this.dbUrl}/login/google`;
+    const url = `${this.api_url}/login/google`;
     return this.http.post(url, { token })
             .pipe(
               tap( (resp: any) => {

@@ -1,3 +1,7 @@
+import { environment } from "src/environments/environment";
+
+const api_url: string = environment.api_url;
+
 export class Usuario{
 
   constructor(
@@ -11,4 +15,15 @@ export class Usuario{
   ){
   }
 
+  get userImgUrl(){
+    if(this.img.includes('https')){
+      return this.img;
+    }
+
+    if(this.img){
+      return `${api_url}/uploads/usuarios/${this.img}`
+    } else {
+      return `${api_url}/uploads/usuarios/404.png`
+    }
+  }
 }
