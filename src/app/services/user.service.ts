@@ -36,6 +36,10 @@ export class UserService {
      return this.usuario.uid || '';
    }
 
+   get userRole(): 'ADMIN_ROLE' | 'USER_ROLE'{
+     return this.usuario.role;
+   }
+
    get headers(){
      return {
        headers: {
@@ -57,7 +61,7 @@ export class UserService {
         const { nombre, email, role, google, img='', uid} = resp.usuario;
 
         this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
-        this.saveTokenOnLocalStorage( resp.token );
+        this.saveOnLocalStorage( resp.token, resp.menu );
         return true;
       }),
       catchError( (error) => of(false))
@@ -69,7 +73,7 @@ export class UserService {
     return this.http.post(url, user)
           .pipe(
             tap( (resp: any) => {
-              this.saveTokenOnLocalStorage( resp.token );
+              this.saveOnLocalStorage( resp.token, resp.menu );
             })
           );
   }
@@ -85,7 +89,7 @@ export class UserService {
     return this.http.post(url, user)
             .pipe(
               tap( (resp: any) => {
-                this.saveTokenOnLocalStorage( resp.token );
+                this.saveOnLocalStorage( resp.token, resp.menu );
               })
             );
   }
@@ -95,13 +99,16 @@ export class UserService {
     return this.http.post(url, { token })
             .pipe(
               tap( (resp: any) => {
-                this.saveTokenOnLocalStorage( resp.token );
+                this.saveOnLocalStorage( resp.token, resp.menu );
               })
             );
   }
 
   logOut(){
     localStorage.removeItem('token');
+
+    //borrar menu
+    localStorage.removeItem('menu');
 
     this.auth2.signOut().then(() => {
 
@@ -112,8 +119,9 @@ export class UserService {
     });
   }
 
-  saveTokenOnLocalStorage(token: string){
-    localStorage.setItem('token', token)
+  saveOnLocalStorage(token: string, menu: any){
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
   }
 
   googleInit(){
@@ -149,7 +157,6 @@ export class UserService {
   }
 
   deleteUser(user: Usuario){
-    console.log(user)
     const url = `${this.api_url}/users/${user.uid}`;
     return this.http.delete(url,  this.headers);
   }

@@ -58,7 +58,6 @@ export class ProfileComponent implements OnInit {
         },
 
         ( error ) => {
-          console.log(error);
           swal.fire('Error', error.error.msg, 'error');
         }
       )

@@ -15,7 +15,8 @@ export class HeaderComponent implements OnInit {
   userProfile: Usuario;
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.userProfile = userService.usuario;
    }
@@ -25,6 +26,13 @@ export class HeaderComponent implements OnInit {
 
   logOut(){
     this.userService.logOut();
+  }
+
+  globalSearch(searchTerm: string){
+    if( searchTerm.length === 0){
+      return;
+    }
+    this.router.navigateByUrl(`/dashboard/buscar/${ searchTerm }`);
   }
 
 }

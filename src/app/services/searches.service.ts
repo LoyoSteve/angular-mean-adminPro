@@ -63,4 +63,9 @@ export class SearchesService {
             })
           )
   }
+
+  globalSearch( searchTerm: string ){
+    const url = `${this.api_url}/todo/${searchTerm}`
+    return this.http.get(url, this.headers);
+  }
 }

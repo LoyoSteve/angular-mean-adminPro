@@ -40,7 +40,6 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(){
-    console.log(this.registerForm.value)
     if(this.registerForm.valid){
       //si el formulario es valido
       //crear objeto de usuario

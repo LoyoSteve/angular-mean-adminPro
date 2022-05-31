@@ -19,6 +19,7 @@ import { HospitalesComponent } from './mantenimiento/hospitales/hospitales.compo
 import { MedicosComponent } from './mantenimiento/medicos/medicos.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { MedicoEditComponent } from './mantenimiento/medicos/medico-edit/medico-edit.component';
+import { GlobalSearchComponent } from './global-search/global-search.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MedicoEditComponent } from './mantenimiento/medicos/medico-edit/medico-
     UsuariosComponent,
     HospitalesComponent,
     MedicosComponent,
-    MedicoEditComponent
+    MedicoEditComponent,
+    GlobalSearchComponent
   ],
   exports: [
     DashboardComponent,
