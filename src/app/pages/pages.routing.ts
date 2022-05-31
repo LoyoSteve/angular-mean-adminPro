@@ -4,6 +4,9 @@ import { AuthGuard } from "../guards/auth.guard";
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { Grafica1Component } from "./grafica1/grafica1.component";
+import { HospitalesComponent } from "./mantenimiento/hospitales/hospitales.component";
+import { MedicoEditComponent } from "./mantenimiento/medicos/medico-edit/medico-edit.component";
+import { MedicosComponent } from "./mantenimiento/medicos/medicos.component";
 import { UsuariosComponent } from "./mantenimiento/usuarios/usuarios.component";
 import { PagesComponent } from "./pages.component";
 import { ProfileComponent } from "./profile/profile.component";
@@ -25,7 +28,10 @@ const routes: Routes = [
             { path: 'rxjs', component: RxjsComponent, data: { title: 'RxJs'}},
             { path: 'profile', component: ProfileComponent, data: { title: 'Perfil de usuario'}},
             //mantenimientos
-            { path: 'usuarios', component: UsuariosComponent, data: { title: 'Usuarios de aplicacion'}},
+            { path: 'usuarios', component: UsuariosComponent, data: { title: 'Mantenimiento de usuarios'}},
+            { path: 'hospitales', component: HospitalesComponent, data: { title: 'Mantenimiento de hospitales'}},
+            { path: 'medicos', component: MedicosComponent, data: { title: 'Mantenimiento de medicos'}},
+            { path: 'medicos/:id', component: MedicoEditComponent, data: { title: 'Formulario medicos'}},
         ]
     },
 ]

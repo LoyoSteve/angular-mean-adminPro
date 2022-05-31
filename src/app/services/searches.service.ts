@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Hospital } from '../models/hospital.model';
+import { Medico } from '../models/medico.model';
 import { Usuario } from '../models/usuario.model';
 
 @Injectable({
@@ -33,6 +35,13 @@ export class SearchesService {
     );
   }
 
+  private toHospitalsClass( resultados: any[] ): Hospital[]{
+    return resultados;
+  }
+
+  private toMedicosClass( resultados: any[] ): Medico[]{
+    return resultados;
+  }
   search( tipo: 'usuarios' | 'medicos' | 'hospitales', term: string){
     const url = `${this.api_url}/todo/coleccion/${tipo}/${term}`
     return this.http.get<any[]>(url, this.headers)
@@ -43,8 +52,12 @@ export class SearchesService {
                   return this.toUsuariosClass( resp.resultados );
                   break;
 
-                default:
-                  return []
+                case 'hospitales':
+                  return this.toHospitalsClass(resp.resultados);
+                  break;
+
+                case 'medicos':
+                  return this.toMedicosClass(resp.resultados);
                   break;
               }
             })

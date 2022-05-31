@@ -15,6 +15,10 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
+import { HospitalesComponent } from './mantenimiento/hospitales/hospitales.component';
+import { MedicosComponent } from './mantenimiento/medicos/medicos.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { MedicoEditComponent } from './mantenimiento/medicos/medico-edit/medico-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,10 @@ import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
     AccountSettingsComponent,
     RxjsComponent,
     ProfileComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    HospitalesComponent,
+    MedicosComponent,
+    MedicoEditComponent
   ],
   exports: [
     DashboardComponent,
@@ -40,7 +47,8 @@ import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ]
 })
 export class PagesModule { }

@@ -25,7 +25,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private serachService: SearchesService,
+    private searchService: SearchesService,
     private modalImageService: ModalImageService
   ) { }
 
@@ -67,8 +67,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   search(term: string){
     if(term.length != 0){
-      this.serachService.search('usuarios', term).subscribe(
-        ( resultados ) => {
+      this.searchService.search('usuarios', term).subscribe(
+        ( resultados: Usuario[] ) => {
           this.users = resultados;
         }
       );
