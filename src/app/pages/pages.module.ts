@@ -14,6 +14,7 @@ import { PagesComponent } from './pages.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
+import { UsuariosComponent } from './mantenimiento/usuarios/usuarios.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProfileComponent } from './profile/profile.component';
     PagesComponent,
     AccountSettingsComponent,
     RxjsComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsuariosComponent
   ],
   exports: [
     DashboardComponent,

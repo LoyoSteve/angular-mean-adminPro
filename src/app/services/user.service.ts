@@ -36,6 +36,14 @@ export class UserService {
      return this.usuario.uid || '';
    }
 
+   get headers(){
+     return {
+       headers: {
+         'x-token': this.userToken
+       }
+     }
+   }
+
   renewToken(): Observable<boolean>{
     const url = `${this.api_url}/login/renew`;
 
@@ -66,14 +74,10 @@ export class UserService {
           );
   }
 
-  updateForm(user: Partial<IUser>){
+  updateCurrentUser(user: Partial<IUser>){
     user.role = this.usuario.role;
     const url = `${this.api_url}/users/${this.userUid}`;
-    return this.http.put(url, user, {
-      headers: {
-        'x-token': this.userToken
-      }
-    });
+    return this.http.put(url, user, this.headers);
   }
 
   loginForm(user: Partial<IUser>){
@@ -126,5 +130,34 @@ export class UserService {
 
     });
   }
+
+  //CRUD USERS
+  getUsers(desde: number = 0){
+    const url = `${this.api_url}/users?desde=${desde}`
+    return this.http.get<{total:number, usuarios:Usuario[]}>(url, this.headers)
+          .pipe(
+            map( resp => {
+              const usuarios = resp.usuarios.map(
+                user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid)
+              );
+              return {
+                total: resp.total,
+                usuarios: usuarios
+              };
+            })
+          )
+  }
+
+  deleteUser(user: Usuario){
+    console.log(user)
+    const url = `${this.api_url}/users/${user.uid}`;
+    return this.http.delete(url,  this.headers);
+  }
+
+  updateUser(user: Usuario){
+    const url = `${this.api_url}/users/${user.uid}`;
+    return this.http.put(url, user, this.headers);
+  }
+
 }
 

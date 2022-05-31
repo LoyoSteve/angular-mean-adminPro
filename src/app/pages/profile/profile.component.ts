@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
         email: formValues.emailCtrl
       }
       //guardar en api
-      this.userService.updateForm( updatedUser ).subscribe(
+      this.userService.updateCurrentUser( updatedUser ).subscribe(
         (resp: any) => {
           const { nombre, email } = resp.usuario;
           this.userProfile.nombre = nombre;
